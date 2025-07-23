@@ -1,0 +1,92 @@
+﻿@page
+@using BookLook.Classes;
+@using System.Text
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model BookLookupModel
+@{
+	ViewData["Title"] = "Home page";
+	var imageBaseUri = "https://covers.openlibrary.org/b/olid/";
+	var imageSizeWJpeg = "-M.jpg";
+	var searchResults = (BookSearchResults)(ViewData["SearchResults"] ?? new BookSearchResults());
+	var docs = (List<BookDoc>)(ViewData["Docs"] ?? new List<BookDoc>()) ;
+	var recordsFound = searchResults.NumFound;
+	var currentAuthorKey = "";
+}
+
+<div class="text-left">
+    <h1 class="display-4"> Author Search Results</h1>
+	<br />
+	<h3>Total Documents Found: @recordsFound</h3>
+	<br />
+	@await Html.PartialAsync("../Shared/_PagingView.cshtml")
+
+	@foreach(BookDoc d in docs)
+	{
+		if (d.AuthorKey == null)
+			break;
+		var docKey = String.Join(", ", d.AuthorKey.ToArray());
+		var names = new StringBuilder();
+
+		var coverImageJpgUri = imageBaseUri + d.CoverEditionKey + imageSizeWJpeg ;
+;
+		if (d.AuthorName?.Count > 5)
+		{
+			names.Append( d.AuthorName != null ? String.Join(", ", d.AuthorName.ToArray(),0,5) : "");
+			names.Append(" ... and ");
+			var remaining = d.AuthorName?.Count - 6;
+			names.Append(Convert.ToString(remaining) + " more");
+		}
+		else
+		{
+			names.Append( d.AuthorName != null ? String.Join(", ", d.AuthorName.ToArray()) : "");
+		}
+		if (currentAuthorKey != docKey)
+		{
+			if (currentAuthorKey == "")
+			{
+				@:<h6>@names</h6>
+				@:<table class="datatable">
+					@:<tr>
+						@:<th>Image</th>
+						@:<th>Title</th>
+						@:<th>First Publish Year</th>
+						@:<th>EBook Access</th>						
+						@:<th>Edition Count</th>
+						@:<th>Language</th>
+						@:<th>Subject</th>
+					@:</tr>	
+			}
+			else
+			{
+				@:</table>
+				@:<br />
+				@:<h6>@names</h6>
+				@:<table class="datatable">
+					@:<tr>
+						@:<th>Image</th>
+						@:<th>Title</th>
+						@:<th>First Publish Year</th>
+						@:<th>EBook Access</th>
+						@:<th>Edition Count</th>
+						@:<th>Language</th>
+						@:<th>Subject</th>
+					@:</tr>			
+			}
+		}
+		currentAuthorKey = docKey;			
+					@:<tr>
+						@:<td><img src="@coverImageJpgUri" alt="Cover of: @d.Title" title="Cover of: @d.Title"></td>
+						@:<td>@String.Concat(d.Title, " ", d.Subtitle)</td>
+						@:<td>@d.FirstPublishYear</td>
+						@:<td>@d.EbookAccess</td>
+						@:<td>@d.EditionCount</td>
+						@:<td>@(d.Language != null ? String.Join(", ", d.Language.ToArray()) : "")</td>
+						@:<td>@(d.Subject != null ? String.Join(", ", d.Subject.ToArray()) : "")</td>
+					@:</tr>
+	}
+	
+    </table>
+	<br />
+	@await Html.PartialAsync("../Shared/_PagingView.cshtml")
+</div>
+

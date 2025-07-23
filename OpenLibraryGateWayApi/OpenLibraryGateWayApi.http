@@ -1,0 +1,6 @@
+@OpenLibraryGateWayApi_HostAddress = http://localhost:5018
+
+GET {{OpenLibraryGateWayApi_HostAddress}}/index
+Accept: application/json
+
+###

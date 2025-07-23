@@ -1,0 +1,13 @@
+.vs/OpenLibraryGateWayApi/CopilotIndices/17.14.786.1071/SemanticSymbols.db
+*.obj
+
+build/
+target/
+**/bin/
+*.tmp
+temp/
+*.log
+*Copilot*
+.vs
+**/Debug/
+**/obj/

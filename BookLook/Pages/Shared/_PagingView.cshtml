@@ -1,0 +1,28 @@
+﻿@{
+	var requestedPage = (int)(ViewData["requestedPage"] ?? 1);
+	var pageCount = (int) (ViewData["pageCount"]?? 0 );
+	var currentSearch = (string) (ViewData["currentSearch"] ?? "");
+}
+<table class="px-sm-2">
+	<tr>
+		<td>
+			@if (requestedPage > 1)
+			{
+				<a asp-page="/Book/Booklookup" asp-route-authorname="@currentSearch" asp-route-pageSelected="@Convert.ToString(requestedPage - 1)"> &lt;Previous </a>
+			}
+		</td>
+		<td></td>
+
+		<td>
+			Page @requestedPage of @pageCount
+		</td>
+		<td ></td>
+		<td>
+			@if (requestedPage < pageCount)
+			{
+				<a asp-page="/Book/Booklookup" asp-route-authorname="@currentSearch" asp-route-pageSelected="@Convert.ToString(requestedPage + 1)"> Next &gt; </a>
+			}
+		</td>
+	</tr>
+</table>
+<br />

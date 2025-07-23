@@ -1,0 +1,30 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "OpenLibraryGateWayApi\\OpenLibraryGateWayApi.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "BookLook\\BookLook.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      }
+    ]
+  },
+  {
+    "Name": "Launch Both https",
+    "Projects": [
+      {
+        "Path": "OpenLibraryGateWayApi\\OpenLibraryGateWayApi.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "BookLook\\BookLook.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

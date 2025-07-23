@@ -1,0 +1,17 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Home page";
+}
+@using (Html.BeginForm(FormMethod.Post))
+{
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+        <h4>This is a simple App and Gateway Api that uses OpenLib.org</h4>
+        <br /><br />
+
+    Lookup books by Author Name: @Html.TextBox("authorname")
+    <input id="btnSubmit" type="submit" value="Submit" />
+</div>
+}
